@@ -1,0 +1,162 @@
+import React, { useEffect, useState } from 'react'
+import './Allrisk.css'
+import axios from "axios";
+import { Link } from "react-router-dom";
+// import New from './asset/Rectangle.png'
+
+function Allrisk() {
+    const [allRisks, setAllRisks] = useState([]);
+    const [countCommentAndDoc, setCountCommentAndDoc] = useState([]);
+
+    useEffect(() => {
+        axios
+        .post("http://localhost:5000/api/v1/Risk/Get_New_Risks", {industryId: ["1"], Risk_catId: ["1"]})
+          .then((res) => {
+            setAllRisks(res.data)
+            
+          })
+          .catch((error) => { console.log(error);});
+        axios
+        .post("http://localhost:5000/api/v1/Risk/Get_Count",)
+          .then((res) => {
+            setCountCommentAndDoc(res.data)
+          })
+          .catch((error) => {console.log(error); });
+      },[]);
+
+      const getcommentcount = (item) => {
+        if(countCommentAndDoc.Comment){
+            let countComment = countCommentAndDoc.Comment.find((ele) => Number(ele.id) === item.ID)
+            if(countComment){
+             return countComment.count;
+            }
+            else{
+                return 0;
+            }
+       }
+      }
+      const getDoccount = (item) => {
+
+        if(countCommentAndDoc.Doc){
+            let countDoc = countCommentAndDoc.Doc.find((ele) => Number(ele.id) === item.ID)
+            if(countDoc){
+             return countDoc.count;
+            }
+            else{
+                return 0;
+            }
+        }
+      }
+    
+
+    return (
+        <>
+            <div className="container-fluid" style={{ width: '100%', height: 'auto', backgroundColor: '#e9f3fc' }}>
+                {/* Navbar */}
+                <nav className="navbar bg-body-tertiary ms-4 me-4 mt-2">
+                    <div className="container-fluid">
+                        <a className="navbar-brand" href='!#'><strong><h3 style={{fontSize:'21px'}}>All Risk</h3></strong></a>
+                        <div className="input-group search">
+                            <input type="text" className="form-control " id='navSearch' placeholder="Search" aria-label="Search" />
+                            <button className="btn btn-light " id='navSearch1' type="button">
+                                <i className="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+
+                {/* Card's */}
+                <div className="row g-2 ms-4 me-4">
+                    {/* All Cards */}
+
+                    {
+                        allRisks.map((item)=>
+                        <div className="col col-lg-3 col-md-4" key={item.ID}>
+                        <Link to="/Risk-Detail" state={item} style={{textDecoration: "none", color: "black"}}>
+                        <div className='card Card shadow rounded' >
+                          
+                            <div className="d-flex flex-row justify-content-between">
+                                <div className=" pt-2 Count" style={{ fontSize: 20, fontWeight: 'bold' }}>{item.ID}</div>
+                                <span className='Table'>
+                                    <span style={{ fontSize: 14, color: '#00a5b9' }}>
+                                        <strong>Risk Statement</strong>
+                                    </span>
+                                    <br />
+                                    <span style={{ fontSize: 12 }}>
+                                        <strong>{item.TITLE}</strong>
+                                    </span>
+                                </span>
+                                <div className='Mark'>
+                                    <button className="btn btn-sm btn-secondary rounded-circle">X</button>
+                                </div>
+                            </div>
+                            <hr className='Line hr' />
+                            <div className="d-flex justify-content-between ms-3 me-3 mb-1">
+                                <div >Risk Rating</div>
+                                <div className=" border-bottom border-danger border-2" style={{ fontSize: 14, color: 'red' }}><strong>{item.RATING}</strong></div>
+                            </div>
+                            <hr className='Line hr' />
+                            <div className="ms-3 me-3">
+                                <p style={{ fontSize: 14, marginBottom: 0 }} > {item.DESCRIPTION}</p>
+                            </div>
+                            <hr className='Line hr' />
+                            <div className="d-flex justify-content-between ms-3 me-3 mb-1">
+                                <div >Risk Category</div>
+                                <div style={{ fontSize: 14 }}><strong>{item.riskcatname}</strong></div>
+                            </div>
+                            <hr className='Line hr' />
+                            <div className="d-flex flex-row justify-content-between ms-3 me-3 p-1">
+                                <div className='d-flex flex-row icon'>
+                                    <i className="fa-solid fa-comment me-1 mt-1"></i><p>{getcommentcount(item)}</p>
+                                </div>
+                                <div className="vr"></div>
+                                <div className='d-flex flex-row icon'>
+                                    <i className="fa-solid fa-paperclip me-1 mt-1"></i><p>{getDoccount(item)}</p>
+                                </div>
+                                <div className="vr"></div>
+                                <div>
+                                    <button type="button" className="btn btn-sm text-light Approve"><h6>Approve</h6></button>
+                                </div>
+                            </div>
+                        </div>
+                       </Link>
+                    </div>
+                        )
+                        
+                    }
+
+
+                </div>
+                <div className="Pagi position-absolute bottom-0 end-25 ">
+                    <nav aria-label="Page navigation example border border-0">
+                        <ul className="pagination">
+                            <li className="page-item">
+                                <a className="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li className="page-item"><a className="page-link" href="#">1</a></li>
+                            <li className="page-item"><a className="page-link" href="#">2</a></li>
+                            <li className="page-item"><a className="page-link" href="#">3</a></li>
+                            <li className="page-item">
+                                <a className="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+                {/* Add industry Toggle button */}
+                <div className='addIndustry position-absolute bottom-0 end-0 '>
+                    <button className='btn btn-primary rounded-circle '><i className="fa-solid fa-plus"></i></button>
+                </div>
+
+
+            </div>
+        </>
+    )
+}
+
+export default Allrisk
