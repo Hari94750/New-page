@@ -1,0 +1,106 @@
+/* Search bar */
+.search{
+    height: 2rem;
+    width: 18rem !important;
+}
+#navSearch{
+    border-radius: 20px 0px 0px 20px !important;
+}
+#navSearch1{
+    border-radius: 0px 20px 20px 0px !important;
+}
+
+/* Bottom create new industry button */
+.addIndustry{
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Line separator  */
+.Line{
+    width:90% !important;
+    margin-left: 1rem !important;
+}
+/* inside card  */
+/* button */
+.Mark{
+    height:25px;
+    /* border-radius:20px ; */
+    /* z-index: 1px; */
+    position: relative;
+    bottom: 6px;
+    left: 6px;
+}
+.Count{
+    z-index: 1px;
+    position: relative;
+    bottom: 5px;
+    left: 1.5rem;
+    top: 4px;
+}
+.New{
+    position: absolute !important;
+    z-index: 1 !important;
+    height: 5rem;
+    bottom: 10rem !important;
+    right:15rem;
+}
+.into{
+    height:25px;
+    width: 15px;
+    margin-right: 1000rem !important;
+}
+.Close{
+    margin-left: 2rem;
+    position:relative;
+    bottom: 0.4rem;
+    left: 0.2rem;
+}
+.icon{
+    color: #00a5b9;
+}
+.Approve{
+    border-radius: 10rem !important ;
+    width:6rem !important;
+    padding: 0% !important;
+    background-color: #00a5b9;
+}
+.Approved{
+    border-radius: 10rem !important ;
+    width:6rem !important;
+    padding: 0% !important;
+    background-color: transparent;
+}
+.Rating{
+    text-underline-offset: 9px !important;
+}
+.Pagi{
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+    right:40%;
+}
+hr{
+    margin: 2px 0px 2px 0px !important;
+    padding-bottom: 5px !important;
+}
+.PublishCard{
+    /* opacity: 0.6; */
+  pointer-events: none;
+  /* position: relative; */
+}
+.Change{
+    opacity: 10rem !important;
+    z-index: 3 !important;
+    background-color: #00a5b9;
+    border-radius: 10rem !important ;
+    padding: 2px !important;
+    font-size: 1px !important;
+}
+.Rediploy{
+    /* z-index: 111; */
+    position: absolute;
+    background-color: #00a5b9;
+    bottom: 7rem;
+    left: 7rem;
+    border-radius: 15px;
+}
